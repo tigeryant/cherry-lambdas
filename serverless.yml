@@ -20,6 +20,7 @@ provider:
   httpApi:
     cors: true
 
+# for paramiko
 custom:
   pythonRequirements:
     noDeploy:
