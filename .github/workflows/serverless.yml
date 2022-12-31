@@ -1,0 +1,72 @@
+org: tigeryant
+app: cherry-app
+service: cherry-service
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.7
+  versionFunctions: false # optional, default is true
+  tracing:
+    lambda: true # optional, enables tracing for all functions (can be true (true equals 'Active') 'Active' or 'PassThrough')
+  region: eu-west-2
+  iam: 
+    role: arn:aws:iam::322928185466:role/service-role/get_address_info-role-x3cv2x5x
+  environment:
+    # NODE_IP: ${env:NODE_IP} 
+    # SSH_PASSWORD: ${env:SSH_PASSWORD}
+    # SSH_USER: ${env:SSH_USER}
+    NODE_IP: ${env:NODE_IP} 
+    SSH_PASSWORD: ${env:SSH_PASSWORD}
+    SSH_USER: ${env:SSH_USER}
+  httpApi:
+    cors: true
+
+# for paramiko
+custom:
+  pythonRequirements:
+    noDeploy:
+      - bcrypt
+      - paramiko
+      - cryptography
+      - nacl
+      - pycparser
+      - asn1crypto
+      - cffi
+      - boto3
+      - botocore
+      - docutils
+
+functions:
+  get_block:
+    handler: get_block.lambda_handler # required, handler set in AWS Lambda
+    name: ${sls:stage}-get_block # optional, Deployed Lambda name
+    description: get_block - serverless deployed lambda # optional, Description to publish to AWS
+    layers:
+      - arn:aws:lambda:eu-west-2:898466741470:layer:paramiko-py37:1
+    events:
+      - httpApi:
+          method: GET
+          path: /dev-get_block/{hash}
+  get_raw_transaction:
+    handler: get_raw_transaction.lambda_handler # required, handler set in AWS Lambda
+    name: ${sls:stage}-get_raw_transaction # optional, Deployed Lambda name
+    description: get_raw_transaction - serverless deployed lambda # optional, Description to publish to AWS
+    layers:
+      - arn:aws:lambda:eu-west-2:898466741470:layer:paramiko-py37:1
+    events:
+      - httpApi:
+          method: GET
+          path: /dev-get_raw_transaction/{txid}
+  get_address_info:
+    handler: get_address_info.lambda_handler # required, handler set in AWS Lambda
+    name: ${sls:stage}-get_address_info # optional, Deployed Lambda name
+    description: get_address_info - serverless deployed lambda # optional, Description to publish to AWS
+    layers:
+      - arn:aws:lambda:eu-west-2:898466741470:layer:paramiko-py37:1
+    events:
+      - httpApi:
+          method: GET
+          path: /dev-get_address_info/{address}
+  
