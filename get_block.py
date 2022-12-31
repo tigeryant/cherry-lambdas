@@ -9,6 +9,7 @@ USERNAME = os.environ["SSH_USER"]
 PASSWORD = os.environ["SSH_PASSWORD"]
 
 def lambda_handler(event, context): 
+    # adding test comment
     # print(f"event queryStringParameters: {event['queryStringParameters']}")
     # print(f"event: {event}")
     
