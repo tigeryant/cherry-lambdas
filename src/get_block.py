@@ -6,8 +6,22 @@ HOST = os.environ["NODE_IP"]
 USERNAME = os.environ["SSH_USER"]
 PASSWORD = os.environ["SSH_PASSWORD"]
 
-def lambda_handler(event, context): 
-    input_hash = event['queryStringParameters']['hash']
+def lambda_handler(event, context):
+    response_object = {}
+    response_object['headers'] = {}
+    response_object['headers']['Content-type'] = 'application/json'
+    
+    if 'hash' in event['queryStringParameters']:
+        if event['queryStringParameters']['hash'] != "":
+            input_hash = event['queryStringParameters']['hash']
+        else:
+            response_object['statusCode'] = 400
+            response_object['body'] = json.dumps({"error": "hash parameter value was missing from request"})
+            return response_object
+    else:
+        response_object['statusCode'] = 422
+        response_object['body'] = json.dumps({"error": "hash parameter key was missing from request"})
+        return response_object
     
     client = paramiko.client.SSHClient()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -17,10 +31,6 @@ def lambda_handler(event, context):
     error = _stderr.read().decode().strip()
     client.close()
     
-    response_object = {}
-    response_object['headers'] = {}
-    response_object['headers']['Content-type'] = 'application/json'
-    
     if response:
         response_object['statusCode'] = 200
         response_object['body'] = response
@@ -29,6 +39,6 @@ def lambda_handler(event, context):
         response_object['body'] = error
     else:
         response_object['statusCode'] = 500
-        response_object['body'] = json.dumps({"Message": "Custom message - lambda failed"})
+        response_object['body'] = json.dumps({"message": "custom message - lambda encountered an error"})
         
     return response_object
