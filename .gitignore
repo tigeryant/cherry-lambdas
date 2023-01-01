@@ -1,3 +1,7 @@
 .serverless
 .github/workflows/.serverless
 .github/workflows/main-original.yml
+
+# node modules & package lock
+node_modules
+package-lock.json

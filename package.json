@@ -1,0 +1,22 @@
+{
+  "name": "cherry-lambdas",
+  "version": "1.0.0",
+  "description": "These lambda functions define the backend logic for Cherry, a Bitcoin block explorer. The frontend repo can be found [here](https://github.com/tigeryant/cherry-fe). ## Functions * `get_block` - returns data regarding a specific block * `get_address_info` - returns data regarding a specific address * `get_raw_transaction` - returns data regarding a specific transaction",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tigeryant/cherry-lambdas.git"
+  },
+  "author": "tigeryant",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tigeryant/cherry-lambdas/issues"
+  },
+  "homepage": "https://github.com/tigeryant/cherry-lambdas#readme",
+  "dependencies": {
+    "serverless-python-requirements": "^6.0.0"
+  }
+}

@@ -46,6 +46,12 @@ functions:
       - httpApi:
           method: GET
           path: /dev-get_block/{hash}
+    package:
+      patterns:
+        - "!node_modules/**"
+        - "!yarn.lock"
+        - "!package-lock.json"
+        - "!package.json"
   get_raw_transaction:
     handler: get_raw_transaction.lambda_handler # required, handler set in AWS Lambda
     name: ${sls:stage}-get_raw_transaction # optional, Deployed Lambda name
@@ -56,6 +62,12 @@ functions:
       - httpApi:
           method: GET
           path: /dev-get_raw_transaction/{txid}
+    package:
+      patterns:
+        - "!node_modules/**"
+        - "!yarn.lock"
+        - "!package-lock.json"
+        - "!package.json"
   get_address_info:
     handler: get_address_info.lambda_handler # required, handler set in AWS Lambda
     name: ${sls:stage}-get_address_info # optional, Deployed Lambda name
@@ -66,4 +78,10 @@ functions:
       - httpApi:
           method: GET
           path: /dev-get_address_info/{address}
+    package:
+      patterns:
+        - "!node_modules/**"
+        - "!yarn.lock"
+        - "!package-lock.json"
+        - "!package.json"
   
