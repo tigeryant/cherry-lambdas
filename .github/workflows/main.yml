@@ -27,7 +27,7 @@ jobs:
       - name: Serverless Deploy
         uses: dhollerbach/actions.serverless-with-python-requirements@master
         with:
-          args: -c "cd ../../"
+          args: c "cd ../../"
           # args: -c "cd ../../ && serverless deploy"
           # entrypoint: /bin/sh
         env:
