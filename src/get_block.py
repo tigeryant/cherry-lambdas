@@ -6,7 +6,7 @@ HOST = os.environ["NODE_IP"]
 USERNAME = os.environ["SSH_USER"]
 PASSWORD = os.environ["SSH_PASSWORD"]
 
-def lambda_handler(event): 
+def lambda_handler(event, context): 
     myhash = event['queryStringParameters']['hash']
     
     client = paramiko.client.SSHClient()
