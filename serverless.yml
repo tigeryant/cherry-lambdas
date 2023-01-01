@@ -31,7 +31,7 @@ package:
     - "!package.json"
     - "!README.md"
 
-# for paramiko
+# paramiko dependencies
 custom:
   pythonRequirements:
     noDeploy:
