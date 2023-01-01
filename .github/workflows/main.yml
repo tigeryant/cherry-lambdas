@@ -26,9 +26,11 @@ jobs:
 
       - name: Set up environment
         run: npm install
+      
+      - name: Print working directory
+        run: pwd
 
       - name: Serverless Deploy
-        run: pwd
         run: npx serverless deploy 
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
