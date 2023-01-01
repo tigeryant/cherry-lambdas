@@ -14,11 +14,17 @@ provider:
   iam: 
     role: arn:aws:iam::322928185466:role/service-role/get_address_info-role-x3cv2x5x
   environment:
-    NODE_IP: ${env:NODE_IP} 
-    SSH_PASSWORD: ${env:SSH_PASSWORD}
-    SSH_USER: ${env:SSH_USER}
+    NODE_IP: ${ssm:NODE_IP} 
+    SSH_PASSWORD: ${ssm:SSH_PASSWORD}
+    SSH_USER: ${ssm:SSH_USER}
   httpApi:
     cors: true
+
+plugins:
+  - serverless-python-requirements
+
+package:
+  individually: true
 
 # for paramiko
 custom:
