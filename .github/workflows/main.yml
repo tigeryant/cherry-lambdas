@@ -29,6 +29,9 @@ jobs:
       
       - name: Print working directory
         run: pwd
+      
+      - name: List current working directory
+        run: ls -a
 
       - name: Serverless Deploy
         run: npx serverless deploy 
