@@ -1,4 +1,3 @@
-# org: tigeryant
 app: cherry-app
 service: cherry-service
 
@@ -25,6 +24,11 @@ plugins:
 
 package:
   individually: true
+  patterns:
+    - "!node_modules/**"
+    - "!yarn.lock"
+    - "!package-lock.json"
+    - "!package.json"
 
 # for paramiko
 custom:
@@ -43,51 +47,35 @@ custom:
 
 functions:
   get_block:
-    handler: get_block.lambda_handler # required, handler set in AWS Lambda
-    name: ${sls:stage}-get_block # optional, Deployed Lambda name
-    description: get_block - serverless deployed lambda # optional, Description to publish to AWS
+    handler: get_block.lambda_handler
+    name: ${sls:stage}-get_block
+    description: get_block - serverless deployed lambda
     layers:
       - arn:aws:lambda:eu-west-2:898466741470:layer:paramiko-py37:1
     events:
       - httpApi:
           method: GET
           path: /dev-get_block/{hash}
-    package:
-      patterns:
-        - "!node_modules/**"
-        - "!yarn.lock"
-        - "!package-lock.json"
-        - "!package.json"
+
   get_raw_transaction:
-    handler: get_raw_transaction.lambda_handler # required, handler set in AWS Lambda
-    name: ${sls:stage}-get_raw_transaction # optional, Deployed Lambda name
-    description: get_raw_transaction - serverless deployed lambda # optional, Description to publish to AWS
+    handler: get_raw_transaction.lambda_handler
+    name: ${sls:stage}-get_raw_transaction
+    description: get_raw_transaction - serverless deployed lambda
     layers:
       - arn:aws:lambda:eu-west-2:898466741470:layer:paramiko-py37:1
     events:
       - httpApi:
           method: GET
           path: /dev-get_raw_transaction/{txid}
-    package:
-      patterns:
-        - "!node_modules/**"
-        - "!yarn.lock"
-        - "!package-lock.json"
-        - "!package.json"
+
   get_address_info:
-    handler: get_address_info.lambda_handler # required, handler set in AWS Lambda
-    name: ${sls:stage}-get_address_info # optional, Deployed Lambda name
-    description: get_address_info - serverless deployed lambda # optional, Description to publish to AWS
+    handler: get_address_info.lambda_handler
+    name: ${sls:stage}-get_address_info
+    description: get_address_info - serverless deployed lambda
     layers:
       - arn:aws:lambda:eu-west-2:898466741470:layer:paramiko-py37:1
     events:
       - httpApi:
           method: GET
           path: /dev-get_address_info/{address}
-    package:
-      patterns:
-        - "!node_modules/**"
-        - "!yarn.lock"
-        - "!package-lock.json"
-        - "!package.json"
   
