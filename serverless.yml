@@ -29,6 +29,7 @@ package:
     - "!yarn.lock"
     - "!package-lock.json"
     - "!package.json"
+    - "!README.md"
 
 # for paramiko
 custom:
