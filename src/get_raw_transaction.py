@@ -11,7 +11,7 @@ def lambda_handler(event, context):
     response_object['headers'] = {}
     response_object['headers']['Content-type'] = 'application/json'
 
-    if 'hash' in event['queryStringParameters']:
+    if 'txid' in event['queryStringParameters']:
         if event['queryStringParameters']['txid'] != "":
             txid = event['queryStringParameters']['txid']
         else:
