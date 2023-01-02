@@ -25,7 +25,13 @@ def lambda_handler(event, context):
     
     client = paramiko.client.SSHClient()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client.connect(HOST, username=USERNAME, password=PASSWORD)
+    try:
+        client.connect(HOST, username=USERNAME, password=PASSWORD, timeout=3)
+    except:
+        response_object['statusCode'] = 502
+        response_object['body'] = json.dumps({"error": "failed to establish SSH connection"})
+        return response_object
+        
     _stdin, _stdout, _stderr = client.exec_command(f"bitcoin-cli -named getblock blockhash={input_hash} verbosity=1")
     response = _stdout.read().decode().strip()
     error = _stderr.read().decode().strip()
@@ -39,6 +45,6 @@ def lambda_handler(event, context):
         response_object['body'] = error
     else:
         response_object['statusCode'] = 500
-        response_object['body'] = json.dumps({"message": "custom message - lambda encountered an error"})
+        response_object['body'] = json.dumps({"error": "lambda encountered an error"})
         
     return response_object
