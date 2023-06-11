@@ -3,9 +3,9 @@ import os
 import json
 import boto3
 
-HOST = os.environ["NODE_IP"]
-USERNAME = os.environ["SSH_USER"]
-PASSWORD = os.environ["SSH_PASSWORD"]
+# HOST = os.environ["NODE_IP"]
+# USERNAME = os.environ["SSH_USER"]
+# PASSWORD = os.environ["SSH_PASSWORD"]
 
 def lambda_handler(event, context):
     ssm = boto3.client('ssm')
@@ -16,8 +16,9 @@ def lambda_handler(event, context):
     for parameter in response['Parameters']:
         parameter_values[parameter['Name']] = parameter['Value']
 
-    print(f"my node ip: {parameter_values['NODE_IP']}")
-
+    HOST = parameter_values['NODE_IP']
+    USERNAME = parameter_values['USERNAME']
+    PASSWORD = parameter_values['PASSWORD']
 
     response_object = {}
     response_object['headers'] = {}
