@@ -9,8 +9,14 @@ PASSWORD = os.environ["SSH_PASSWORD"]
 
 def lambda_handler(event, context):
     ssm = boto3.client('ssm')
-    my_node_ip = ssm.get_parameter(Name='NODE_IP', WithDecryption=True)
-    print(f"my node ip: {my_node_ip}")
+    parameter_names = ['NODE_IP', 'SSH_PASSWORD', 'SSH_USER']
+    response = ssm.get_parameters(Names=parameter_names, WithDecryption=True)
+
+    parameter_values = {}
+    for parameter in response['Parameters']:
+        parameter_values[parameter['Name']] = parameter['Value']
+
+    print(f"my node ip: {parameter_values['NODE_IP']}")
 
 
     response_object = {}
