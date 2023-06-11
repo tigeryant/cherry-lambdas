@@ -1,12 +1,18 @@
 import paramiko
 import os
 import json
+import boto3
 
 HOST = os.environ["NODE_IP"]
 USERNAME = os.environ["SSH_USER"]
 PASSWORD = os.environ["SSH_PASSWORD"]
 
 def lambda_handler(event, context):
+    ssm = boto3.client('ssm')
+    my_node_ip = ssm.get_parameter(Name='NODE_IP', WithDecryption=True)
+    print(f"my node ip: {my_node_ip}")
+
+
     response_object = {}
     response_object['headers'] = {}
     response_object['headers']['Content-type'] = 'application/json'
