@@ -3,10 +3,6 @@ import os
 import json
 import boto3
 
-# HOST = os.environ["NODE_IP"]
-# USERNAME = os.environ["SSH_USER"]
-# PASSWORD = os.environ["SSH_PASSWORD"]
-
 def lambda_handler(event, context):
     ssm = boto3.client('ssm')
     parameter_names = ['NODE_IP', 'SSH_PASSWORD', 'SSH_USER']
